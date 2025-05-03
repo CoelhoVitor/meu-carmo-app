@@ -2,9 +2,13 @@
 
 import { NumericFormat } from "react-number-format";
 import RadioSection from "../../components/RadioSection";
+import { useState } from "react";
 
 
 export default function SolicitacaoAtividadeExterna() {
+  const [nome, setNome] = useState("nome");
+  const [email, setEmail] = useState("email");
+
   const secoes = [
     "Alcateia Kotick",
     "Alcateia Mohwa",
@@ -24,6 +28,21 @@ export default function SolicitacaoAtividadeExterna() {
     "Internacional",
   ];
 
+  const handleSubmit = async () => {
+    const res = await fetch("/api/preencher-xlsx", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome, email }),
+    });
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "dados.xlsx";
+    a.click();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form className="bg-white p-6 rounded shadow-md w-full max-w-md">
@@ -37,8 +56,23 @@ export default function SolicitacaoAtividadeExterna() {
             type="text"
             id="nome"
             name="nome"
+            onChange={(e) => setNome(e.target.value)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Digite o nome da atividade"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            Email
+          </label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Digite o email"
           />
         </div>
 
@@ -67,6 +101,7 @@ export default function SolicitacaoAtividadeExterna() {
 
         <button
           type="submit"
+          onClick={handleSubmit}
           className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Enviar

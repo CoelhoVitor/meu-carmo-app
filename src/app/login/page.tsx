@@ -1,72 +1,86 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
 
-const Home: React.FC = () => {
+const LoginPage: React.FC = () => {
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] items-center">
-        <Image
-          className="dark:invert"
-          src="/images/logocarmo.png"
-          alt="Carmo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <div className="flex flex-col gap-4 w-full sm:w-auto">
-          <div className="flex flex-row items-center sm:flex-row sm:items-center gap-4">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Digite seu email"
-              className="border border-gray-300 rounded-md p-2 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+    <div className="flex w-screen h-screen items-center justify-center">
+      <div className="bg-white shadow-2xl rounded-4xl  w-full max-w-4xl">
+        <div className="flex flex-col md:flex-row h-full">
+          {SecaoInicial}
 
-          <div className="flex flex-row items-center sm:flex-row sm:items-center gap-4">
-            <label htmlFor="password" className="text-sm font-medium">
-              Senha:
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Digite sua senha"
-              className="border border-gray-300 rounded-md p-2 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          {SecaoLogin()}
         </div>
-
-        <div className="flex gap-4 items-center flex-col">
-          <Link
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="/home"
-            rel="noopener noreferrer"
-          >
-            Entrar
-          </Link>
-        </div>
-      </main>
-      <footer className="flex gap-[24px] flex-wrap items-center justify-center">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Nos conheça{" "}
-          <a
-            href="https://web.gemarcarmo.org.br/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            G.E.Carmo
-          </a>
-        </p >
-      </footer >
+      </div>
     </div >
   );
 };
 
-export default Home;
+export default LoginPage;
+
+const SecaoInicial = <div className="hidden md:flex flex-col justify-center items-center w-1/2 p-8 rounded-l-4xl"
+  style={{
+    backgroundImage: "url('/images/acampamento.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}>
+  <div className="text-center">
+    <h1 className="text-4xl font-bold text-yellow-400 mb-4">Bem-vindo</h1>
+    <p className="text-white">
+      &quot;O melhor meio para alcançar a felicidade é contribuir para a felicidade dos outros&quot;
+    </p>
+    <p className="text-white">- Baden Powell</p>
+  </div>
+</div>;
+
+const SecaoLogin = () => {
+  return <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-8">
+    <div className="w-full max-w-sm">
+      <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+      <form className="space-y-4">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Digite seu email"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-300" />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            Senha
+          </label>
+          <input
+            type="password"
+            id="senha"
+            name="password"
+            placeholder="Digite sua senha"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-300" />
+        </div>
+
+        <div className="text-right">
+          <a href="#" className="text-sm text-blue-600 hover:underline">
+            Esqueceu a senha?
+          </a>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+        >
+          Login
+        </button>
+      </form>
+
+      <p className="text-center text-sm text-gray-600 mt-4">
+        Não tem uma conta?{" "}
+        <a href="/cadastro" className="text-blue-600 hover:underline">
+          Cadastre-se já!
+        </a>
+      </p>
+    </div>
+  </div>;
+};

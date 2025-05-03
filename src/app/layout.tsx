@@ -27,6 +27,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "url('/images/acampamento.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0.5,
+            zIndex: -1,
+          }}
+        ></div>
         {children}
       </body>
     </html>
