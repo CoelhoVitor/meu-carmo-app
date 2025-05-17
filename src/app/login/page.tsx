@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const LoginPage: React.FC = () => {
 
@@ -33,54 +37,103 @@ const SecaoInicial = <div className="hidden md:flex flex-col justify-center item
 </div>;
 
 const SecaoLogin = () => {
-  return <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-8">
-    <div className="w-full max-w-sm">
-      <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-      <form className="space-y-4">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Digite seu email"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-300" />
-        </div>
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [loading, setLoading] = useState(false);
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Senha
-          </label>
-          <input
-            type="password"
-            id="senha"
-            name="password"
-            placeholder="Digite sua senha"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-300" />
-        </div>
+  const router = useRouter();
 
-        <div className="text-right">
-          <a href="#" className="text-sm text-blue-600 hover:underline">
-            Esqueceu a senha?
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMensagem("");
+
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email,
+        senha,
+      });
+
+      if (res?.error) {
+        setMensagem(res.error);
+      } else {
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (err) {
+      setMensagem(`'Ocorreu um erro ao tentar fazer login', ${err}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-8">
+      <div className="w-full max-w-sm">
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <form className="space-y-4" onSubmit={handleLogin}>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+              required
+              placeholder="Digite seu email"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-300"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="senha" className="block text-sm font-medium text-gray-700">
+              Senha
+            </label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              disabled={loading}
+              required
+              placeholder="Digite sua senha"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring focus:ring-blue-300"
+            />
+          </div>
+
+          <div className="text-right">
+            <a href="#" className="text-sm text-blue-600 hover:underline">
+              Esqueceu a senha?
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+          >
+            {loading ? "Entrando..." : "Entrar"}
+          </button>
+        </form>
+
+        {mensagem && (
+          <p className="mt-4 text-red-600 text-sm text-center">{mensagem}</p>
+        )}
+
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Não tem uma conta?{" "}
+          <a href="/cadastro" className="text-blue-600 hover:underline">
+            Cadastre-se já!
           </a>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
-        >
-          Login
-        </button>
-      </form>
-
-      <p className="text-center text-sm text-gray-600 mt-4">
-        Não tem uma conta?{" "}
-        <a href="/cadastro" className="text-blue-600 hover:underline">
-          Cadastre-se já!
-        </a>
-      </p>
+        </p>
+      </div>
     </div>
-  </div>;
+  );
 };

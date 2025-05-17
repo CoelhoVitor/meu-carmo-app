@@ -96,7 +96,9 @@ const CadastroPage: React.FC = () => {
             Cadastrar
           </button>
         </form>
+
         {mensagem && <p className="text-center text-sm text-red-500 mt-4">{mensagem}</p>}
+
         <p className="text-sm text-center text-gray-600">
           Já tem uma conta?{" "}
           <a href="/login" className="text-blue-500 hover:underline">

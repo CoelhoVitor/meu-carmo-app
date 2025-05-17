@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextAuthProvider } from "./providers";
 import "./globals.css";
+import AppLayout from "@/components/AppLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,22 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-full`}
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url('/images/acampamento.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 0.5,
-            zIndex: -1,
-          }}
-        ></div>
-        {children}
+        <NextAuthProvider>
+          <AppLayout>{children}</AppLayout>
+        </NextAuthProvider>
       </body>
-    </html>
+    </html >
   );
 }

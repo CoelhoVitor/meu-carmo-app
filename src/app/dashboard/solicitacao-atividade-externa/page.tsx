@@ -1,8 +1,8 @@
 "use client";
 
 import { NumericFormat } from "react-number-format";
-import RadioSection from "../../components/RadioSection";
 import { useState } from "react";
+import RadioSection from "@/components/RadioSection";
 
 
 export default function SolicitacaoAtividadeExterna() {
