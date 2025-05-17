@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const LoginPage: React.FC = () => {
@@ -41,27 +40,11 @@ const SecaoLogin = () => {
   const [mensagem, setMensagem] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMensagem("");
 
-    try {
-      const res;
-
-      if (res?.error) {
-        setMensagem(res.error);
-      } else {
-        router.push("/dashboard");
-        router.refresh();
-      }
-    } catch (err) {
-      setMensagem(`'Ocorreu um erro ao tentar fazer login', ${err}`);
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
