@@ -1,5 +1,5 @@
 // git commit push
-// prisma migrate dev --name nome_da_migracao
+// prisma migrate dev --name nome-da-migracao
 // npx prisma generate
 // npx prisma db push
 // vai atualizar no vercel e no neon
@@ -15,15 +15,15 @@ datasource db {
 }
 
 model Usuario {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   nome      String
-  email     String   @unique
+  email     String    @unique
   senha     String
-  createdAt DateTime @default(now())
-  sessions  Sessao[]
+  createdAt DateTime  @default(now())
+  sessions  Session[]
 }
 
-model Sessao {
+model Session {
   id        String   @id
   userId    Int
   expiresAt DateTime
