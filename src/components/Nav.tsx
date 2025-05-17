@@ -1,21 +1,15 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon, LogOut } from "lucide-react";
+import { useState } from "react";
+import { Menu, X, LogOut } from "lucide-react";
+import ThemeSwitch from "./ThemeSwitch";
 
 export default function Nav() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Aguarda a montagem do componente para evitar incompatibilidade de hidratação
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg z-50">
@@ -45,11 +39,9 @@ export default function Nav() {
             >
               Perfil
             </Link>
-            <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-            >
-              {mounted && (theme === "dark" ? <Sun size={20} /> : <Moon size={20} />)}
-            </button>
+
+            <ThemeSwitch />
+
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
               className="flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
@@ -81,16 +73,9 @@ export default function Nav() {
               >
                 Perfil
               </Link>
-              <button
-                onClick={() => {
-                  setTheme(theme === "dark" ? "light" : "dark");
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-base font-medium cursor-pointer"
-              >
-                {mounted && (theme === "dark" ? <Sun size={20} className="mr-2" /> : <Moon size={20} className="mr-2" />)}
-                {mounted && (theme === "dark" ? "Modo Claro" : "Modo Escuro")}
-              </button>
+
+              <ThemeSwitch mobile setIsMenuOpen={setIsMenuOpen} />
+
               <button
                 onClick={() => signOut({ callbackUrl: "/login" })}
                 className="w-full text-left flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-base font-medium"
