@@ -1,7 +1,7 @@
+// git commit push
 // prisma migrate dev --name nome_da_migracao
 // npx prisma generate
 // npx prisma db push
-// git commit push
 // vai atualizar no vercel e no neon
 
 generator client {
