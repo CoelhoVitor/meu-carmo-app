@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const paginasSemNav = ["/login", "/cadastro"];
+  const paginasSemNav = ["/auth/login", "/auth/cadastro"];
   const isPaginaSemNav = paginasSemNav.includes(pathname);
 
   return (

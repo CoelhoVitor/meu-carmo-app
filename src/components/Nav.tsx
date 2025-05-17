@@ -1,6 +1,5 @@
 "use client";
 
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -36,14 +35,14 @@ export default function Nav() {
           <div className="hidden md:flex md:items-center md:space-x-4">
             <Link
               href="/perfil"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
             >
               Perfil
             </Link>
 
             <button
-              onClick={() => signOut({ callbackUrl: "/login" })}
-              className="flex items-center text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              onClick={() => signOut({ callbackUrl: "/auth/login" })}
+              className="flex items-center text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
             >
               <LogOut size={20} className="mr-1" />
               Sair
@@ -74,7 +73,7 @@ export default function Nav() {
               </Link>
 
               <button
-                onClick={() => signOut({ callbackUrl: "/login" })}
+                onClick={() => signOut({ callbackUrl: "/auth/login" })}
                 className="w-full text-left flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-base font-medium"
               >
                 <LogOut size={20} className="mr-2" />

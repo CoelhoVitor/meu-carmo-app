@@ -29,7 +29,7 @@ const CadastroPage: React.FC = () => {
         setNome("");
         setEmail("");
         setSenha("");
-        router.push("/login");
+        router.push("/auth/login");
       } else {
         setMensagem(data.error || "Erro ao cadastrar usuário.");
       }
@@ -101,7 +101,7 @@ const CadastroPage: React.FC = () => {
 
         <p className="text-sm text-center text-gray-600">
           Já tem uma conta?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <a href="/auth/login" className="text-blue-500 hover:underline">
             Faça login
           </a>
         </p>

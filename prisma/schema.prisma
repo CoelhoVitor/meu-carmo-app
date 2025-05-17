@@ -9,9 +9,9 @@ datasource db {
 }
 
 model Usuario {
-  id        String   @id @default(uuid())
-  nome      String
-  email     String   @unique
+  id        Int      @id
+  name      String
+  email     String   @unique(map: "usuario_email_key")
   senha     String
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
 }

@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/login",
-    error: "/login?error=true",
+    signIn: "/auth/login",
+    error: "/auth/login?error=true",
   },
 };

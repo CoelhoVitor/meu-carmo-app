@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -50,11 +49,7 @@ const SecaoLogin = () => {
     setMensagem("");
 
     try {
-      const res = await signIn("credentials", {
-        redirect: false,
-        email,
-        senha,
-      });
+      const res;
 
       if (res?.error) {
         setMensagem(res.error);
@@ -117,7 +112,7 @@ const SecaoLogin = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
           >
             {loading ? "Entrando..." : "Entrar"}
           </button>
@@ -129,7 +124,7 @@ const SecaoLogin = () => {
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Não tem uma conta?{" "}
-          <a href="/cadastro" className="text-blue-600 hover:underline">
+          <a href="/auth/cadastro" className="text-blue-600 hover:underline">
             Cadastre-se já!
           </a>
         </p>
