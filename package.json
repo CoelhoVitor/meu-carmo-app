@@ -10,7 +10,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@next-auth/prisma-adapter": "^1.0.7",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "@prisma/client": "^6.7.0",
     "bcrypt": "^5.1.1",
     "lucide-react": "^0.511.0",

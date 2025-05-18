@@ -1,12 +1,6 @@
-// git commit push
-// prisma migrate dev --name nome-da-migracao
-// npx prisma generate
-// npx prisma db push
-// vai atualizar no vercel e no neon
-
 generator client {
   provider = "prisma-client-js"
-  output   = "/node_modules/@prisma/client/"
+  output   = "./../node_modules/@prisma"
 }
 
 datasource db {
@@ -14,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
+model User {
   id        Int       @id @default(autoincrement())
   nome      String
   email     String    @unique
@@ -27,6 +21,5 @@ model Session {
   id        String   @id
   userId    Int
   expiresAt DateTime
-
-  user Usuario @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
