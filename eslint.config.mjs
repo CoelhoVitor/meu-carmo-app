@@ -17,6 +17,9 @@ const eslintConfig = [
       semi: ["error", "always"],
     },
   },
+  {
+    ignores: ["src/generated/**"],
+  }
 ];
 
 export default eslintConfig;
