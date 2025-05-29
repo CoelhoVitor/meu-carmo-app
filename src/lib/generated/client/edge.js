@@ -132,7 +132,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\vitor\\Documents\\Projetos\\meu-carmo-app\\src\\generated\\client",
+      "value": "C:\\Users\\vitor\\Documents\\Projetos\\meu-carmo-app\\src\\lib\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -150,10 +150,10 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": "../../../../.env",
+    "schemaEnvPath": "../../../../.env"
   },
-  "relativePath": "../../../prisma",
+  "relativePath": "../../../../prisma",
   "clientVersion": "6.8.2",
   "engineVersion": "2060c79ba17c6bb9f5823312b6f6b7f4a845738e",
   "datasourceNames": [
@@ -169,8 +169,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int       @id @default(autoincrement())\n  nome      String\n  email     String    @unique\n  senha     String\n  createdAt DateTime  @default(now())\n  sessions  Session[]\n}\n\nmodel Session {\n  id        String   @id\n  userId    Int\n  expiresAt DateTime\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n",
-  "inlineSchemaHash": "de0c7e3c196fe0229a748ccfeecda82278d8ee83479111be7a619cd849edf916",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/lib/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int       @id @default(autoincrement())\n  nome      String\n  email     String    @unique\n  senha     String\n  createdAt DateTime  @default(now())\n  sessions  Session[]\n}\n\nmodel Session {\n  id        String   @id\n  userId    Int\n  expiresAt DateTime\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n",
+  "inlineSchemaHash": "deee8c9bd29638f8be9f8d36d1a605be713374a312082e272ed596e3d50b8d5f",
   "copyEngine": true
 }
 config.dirname = '/'

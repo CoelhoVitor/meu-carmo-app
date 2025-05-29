@@ -35,6 +35,6 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules, src/generated/**/*"
+    "node_modules, src/lib/generated/**/*"
   ]
 }

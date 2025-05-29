@@ -74,11 +74,11 @@ export function LoginForm() {
         />
       </div>
 
-      <div className="text-right">
+      {/* <div className="text-right">
         <a href="#" className="text-sm text-blue-600 hover:underline">
           Esqueceu a senha?
         </a>
-      </div>
+      </div> */}
 
       <button
         type="submit"

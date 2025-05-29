@@ -25,7 +25,7 @@ export default function DashboardPage() {
               Visualize e atualize suas informações pessoais.
             </p>
             <a
-              href="/perfil"
+              href="/dashboard/perfil"
               className="mt-auto inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-200"
             >
               Ver Perfil
