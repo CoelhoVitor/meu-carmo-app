@@ -21,7 +21,10 @@
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-number-format": "^5.4.3"
+    "react-number-format": "^5.4.3",
+    "survey-core": "^2.3.8",
+    "survey-pdf": "^2.3.8",
+    "survey-react-ui": "^2.3.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
