@@ -1,5 +1,5 @@
-import { getAuth } from "@/auth/cookie";
-import ProtectedLayout from "@/components/layouts/ProtectedLayout";
+import { getAuth } from '@/auth/cookie';
+import ProtectedLayout from '@/components/layouts/ProtectedLayout';
 
 export default async function PerfilPage() {
   const { user } = await getAuth();
@@ -17,7 +17,7 @@ export default async function PerfilPage() {
               </label>
               <input
                 type="text"
-                value={user?.nome || ""}
+                value={user?.nome || ''}
                 readOnly
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm text-gray-700"
               />
@@ -29,7 +29,7 @@ export default async function PerfilPage() {
               </label>
               <input
                 type="email"
-                value={user?.email || ""}
+                value={user?.email || ''}
                 readOnly
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm text-gray-700"
               />

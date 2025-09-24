@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Menu, X, LogOut } from "lucide-react";
-import { useState } from "react";
-import Link from "next/link";
+import { Menu, X, LogOut } from 'lucide-react';
+import { useState } from 'react';
+import Link from 'next/link';
 
 interface MenuProps {
   onSignOut: () => Promise<void>;

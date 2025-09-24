@@ -1,4 +1,4 @@
-import { CadastroForm } from "./CadastroForm";
+import { CadastroForm } from './CadastroForm';
 
 export default function CadastroPage() {
   return (
@@ -8,7 +8,7 @@ export default function CadastroPage() {
         <CadastroForm />
 
         <p className="text-sm text-center text-gray-600">
-          Já tem uma conta?{" "}
+          Já tem uma conta?{' '}
           <a href="/login" className="text-blue-500 hover:underline">
             Faça login
           </a>

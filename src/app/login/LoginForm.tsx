@@ -1,38 +1,38 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [mensagem, setMensagem] = useState("");
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [mensagem, setMensagem] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMensagem("");
+    setMensagem('');
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
+      const res = await fetch('/api/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, senha }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Erro ao fazer login");
+        throw new Error(data.error || 'Erro ao fazer login');
       }
 
-      router.push("/dashboard");
+      router.push('/dashboard');
     } catch (error) {
       console.error(error);
-      setMensagem(error instanceof Error ? error.message : "Erro ao fazer login");
+      setMensagem(error instanceof Error ? error.message : 'Erro ao fazer login');
     } finally {
       setLoading(false);
     }
@@ -85,7 +85,7 @@ export function LoginForm() {
         disabled={loading}
         className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
       >
-        {loading ? "Entrando..." : "Entrar"}
+        {loading ? 'Entrando...' : 'Entrar'}
       </button>
 
       {mensagem && (

@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { MobileMenu, DesktopMenu } from "./NavMenus";
-import { signOut } from "@/features/auth/actions/deslogar";
+import Link from 'next/link';
+import Image from 'next/image';
+import { MobileMenu, DesktopMenu } from './NavMenus';
+import { signOut } from '@/features/auth/actions/deslogar';
 
 export default function Nav() {
   return (

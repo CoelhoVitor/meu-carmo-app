@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
-import { hashPassword } from "@/auth/password";
-import { createSession, generateRandomSessionToken } from "@/auth/session";
-import { setSessionCookie } from "@/auth/cookie";
-import { prisma } from "@/lib/prisma";
+import { NextResponse } from 'next/server';
+import { hashPassword } from '@/auth/password';
+import { createSession, generateRandomSessionToken } from '@/auth/session';
+import { setSessionCookie } from '@/auth/cookie';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
     const { nome, email, senha } = await req.json();
 
     if (!nome || !email || !senha) {
-      return NextResponse.json({ error: "Todos os campos são obrigatórios." }, { status: 400 });
+      return NextResponse.json({ error: 'Todos os campos são obrigatórios.' }, { status: 400 });
     }
 
     const usuarioExistente = await prisma.user.findUnique({
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     });
 
     if (usuarioExistente) {
-      return NextResponse.json({ error: "Email já cadastrado." }, { status: 400 });
+      return NextResponse.json({ error: 'Email já cadastrado.' }, { status: 400 });
     }
 
     const senhaCriptografada = await hashPassword(senha);
@@ -35,9 +35,9 @@ export async function POST(req: Request) {
 
     await setSessionCookie(sessionToken, session.expiresAt);
 
-    return NextResponse.json({ message: "Usuário cadastrado com sucesso!", user: novoUsuario });
+    return NextResponse.json({ message: 'Usuário cadastrado com sucesso!', user: novoUsuario });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Erro ao cadastrar usuário." }, { status: 500 });
+    return NextResponse.json({ error: 'Erro ao cadastrar usuário.' }, { status: 500 });
   }
 }

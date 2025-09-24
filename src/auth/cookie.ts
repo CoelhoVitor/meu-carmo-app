@@ -1,8 +1,8 @@
-import { cache } from "react";
-import { cookies } from "next/headers";
-import { validateSession } from "./session";
+import { cache } from 'react';
+import { cookies } from 'next/headers';
+import { validateSession } from './session';
 
-export const SESSION_COOKIE_NAME = "session";
+export const SESSION_COOKIE_NAME = 'session';
 
 export const setSessionCookie = async (sessionToken: string, expiresAt: Date) => {
   const cookie = {
@@ -10,9 +10,9 @@ export const setSessionCookie = async (sessionToken: string, expiresAt: Date) =>
     value: sessionToken,
     attributes: {
       httpOnly: true,
-      sameSite: "lax" as const,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
+      sameSite: 'lax' as const,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
       expires: expiresAt,
     },
   };
@@ -23,12 +23,12 @@ export const setSessionCookie = async (sessionToken: string, expiresAt: Date) =>
 export const deleteSessionCookie = async () => {
   const cookie = {
     name: SESSION_COOKIE_NAME,
-    value: "",
+    value: '',
     attributes: {
       httpOnly: true,
-      sameSite: "lax" as const,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
+      sameSite: 'lax' as const,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
       maxAge: 0,
     },
   };

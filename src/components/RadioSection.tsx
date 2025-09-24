@@ -1,4 +1,4 @@
-import RadioGroup from "./RadioGroup";
+import RadioGroup from './RadioGroup';
 
 interface RadioSectionProps {
   title: string;

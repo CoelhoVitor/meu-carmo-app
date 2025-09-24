@@ -3,9 +3,9 @@ export function SecaoBoasVindas() {
     <div
       className="hidden md:flex flex-col justify-center items-center w-1/2 p-8 rounded-l-4xl"
       style={{
-        backgroundImage: "url('/images/acampamento.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: 'url(\'/images/acampamento.jpg\')',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <div className="text-center">

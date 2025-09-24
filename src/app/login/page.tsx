@@ -1,5 +1,5 @@
-import { LoginForm } from "./LoginForm";
-import { SecaoBoasVindas } from "./SecaoBoasVindas";
+import { LoginForm } from './LoginForm';
+import { SecaoBoasVindas } from './SecaoBoasVindas';
 
 export default function LoginPage() {
   return (
@@ -14,7 +14,7 @@ export default function LoginPage() {
               <LoginForm />
 
               <p className="text-center text-sm text-gray-600 mt-4">
-                Não tem uma conta?{" "}
+                Não tem uma conta?{' '}
                 <a href="/cadastro" className="text-blue-600 hover:underline">
                   Cadastre-se já!
                 </a>

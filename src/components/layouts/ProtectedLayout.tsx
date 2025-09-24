@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
-import { getAuth } from "@/auth/cookie";
-import Nav from "@/components/Nav";
+import { redirect } from 'next/navigation';
+import { getAuth } from '@/auth/cookie';
+import Nav from '@/components/Nav';
 
 export default async function ProtectedLayout({
   children,
@@ -10,7 +10,7 @@ export default async function ProtectedLayout({
   const { session } = await getAuth();
 
   if (!session) {
-    redirect("/login");
+    redirect('/login');
   }
 
   return (

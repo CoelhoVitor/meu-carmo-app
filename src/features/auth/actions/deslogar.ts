@@ -1,19 +1,19 @@
-"use server";
+'use server';
 
-import { redirect } from "next/navigation";
-import { getAuth, deleteSessionCookie } from "@/auth/cookie";
-import { invalidateSession } from "@/auth/session";
+import { redirect } from 'next/navigation';
+import { getAuth, deleteSessionCookie } from '@/auth/cookie';
+import { invalidateSession } from '@/auth/session';
 
 export async function signOut() {
   const { session } = await getAuth();
 
   if (!session) {
-    redirect("/login");
+    redirect('/login');
   }
 
   await invalidateSession(session.id);
 
   await deleteSessionCookie();
 
-  redirect("/login");
+  redirect('/login');
 };

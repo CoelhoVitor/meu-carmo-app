@@ -1,4 +1,4 @@
-import ProtectedLayout from "@/components/layouts/ProtectedLayout";
+import ProtectedLayout from '@/components/layouts/ProtectedLayout';
 
 export default function DashboardPage() {
   return (

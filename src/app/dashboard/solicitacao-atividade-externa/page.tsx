@@ -1,45 +1,45 @@
-"use client";
+'use client';
 
-import { NumericFormat } from "react-number-format";
-import { useState } from "react";
-import RadioSection from "@/components/RadioSection";
+import { NumericFormat } from 'react-number-format';
+import { useState } from 'react';
+import RadioSection from '@/components/RadioSection';
 
 
 export default function SolicitacaoAtividadeExterna() {
-  const [nome, setNome] = useState("nome");
-  const [email, setEmail] = useState("email");
+  const [nome, setNome] = useState('nome');
+  const [email, setEmail] = useState('email');
 
   const secoes = [
-    "Alcateia Kotick",
-    "Alcateia Mohwa",
-    "Alcateia Seeonee",
-    "Tropa Xingu",
-    "Tropa Cavalo Marinho",
-    "Tropa Viking",
-    "Clã Fênix",
+    'Alcateia Kotick',
+    'Alcateia Mohwa',
+    'Alcateia Seeonee',
+    'Tropa Xingu',
+    'Tropa Cavalo Marinho',
+    'Tropa Viking',
+    'Clã Fênix',
   ];
 
   const niveisAtividade = [
-    "Local-Seção",
-    "Grupo",
-    "Distrital",
-    "Regional",
-    "Nacional",
-    "Internacional",
+    'Local-Seção',
+    'Grupo',
+    'Distrital',
+    'Regional',
+    'Nacional',
+    'Internacional',
   ];
 
   const handleSubmit = async () => {
-    const res = await fetch("/api/preencher-xlsx", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('/api/preencher-xlsx', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome, email }),
     });
 
     const blob = await res.blob();
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
-    a.download = "dados.xlsx";
+    a.download = 'dados.xlsx';
     a.click();
   };
 
