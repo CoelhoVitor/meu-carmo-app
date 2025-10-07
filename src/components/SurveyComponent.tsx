@@ -16,11 +16,11 @@ function savePDF(model: Model) {
 export default function SurveyComponent() {
   const model = new Model(surveyJson);
 
-  model.addNavigationItem({
-    id: 'pdf-export',
-    title: 'Salvar como PDF',
-    action: () => savePDF(model),
-  });
+  // model.addNavigationItem({
+  //   id: 'pdf-export',
+  //   title: 'Salvar como PDF',
+  //   action: () => savePDF(model),
+  // });
 
   return <Survey model={model} />;
 }
