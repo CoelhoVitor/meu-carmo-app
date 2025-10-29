@@ -71,6 +71,7 @@ const inscricoes = {
       title: 'Escotista responsável pela atividade',
       name: 'escotista-responsavel',
       isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
     },
     {
       type: 'radiogroup',
@@ -78,6 +79,7 @@ const inscricoes = {
       name: 'tipo-de-atividade',
       choices: ['Acampamento'],
       isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
     },
     {
       type: 'radiogroup',
@@ -85,6 +87,7 @@ const inscricoes = {
       name: 'atividade-na-sede',
       choices: ['Sim'],
       isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
     },
   ],
 };
@@ -126,6 +129,7 @@ const informacoesAtividade = {
       title: 'Cessão de uso',
       name: 'cessao-de-uso',
       isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
       choices: ['Gratuito'],
     },
   ],
@@ -243,16 +247,26 @@ const por = {
       title: 'Confirmação',
       name: 'concordancia-por-regra-141',
       isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
       choices: [
-        'Declaro que li e estou de acordo com a Regra 141 do POR da UEB',
+        {
+          value: true,
+          text: 'Declaro que li e estou de acordo com a Regra 141 do POR da UEB',
+        },
       ],
     },
+  ],
+};
+
+const final = {
+  name: 'pagina-final',
+  elements: [
     {
       type: 'html',
       name: 'declaracao-final',
       html: `<b>Ao submeter este pedido de autorização para Atividade Externa declaro estar cumprindo todos os pré-requisitos que se façam necessários a fim de garantir sua realização de forma segura para todo e qualquer participante. 
       </br>Declaro, ainda, que cumprirei igualmente todos os requisitos que se façam necessários durante a execução da referida atividade, principalmente aqueles expressos no POR e nos padrões de atividades escoteiras, responsabilizando-me, em nome de todos os demais adultos voluntários envolvidos, por seu bom andamento e segurança de todos.</b>`,
-      startWithNewLine: true,
+      startWithNewLine: false,
     },
   ],
 };
@@ -260,6 +274,5 @@ const por = {
 export const surveyJson = {
   checkErrorsMode: 'onValueChanged',
   textUpdateMode: 'onTyping',
-  pages: [formulario, por],
-  completedHtml: 'Solicitação enviada com sucesso!',
+  pages: [formulario, por, final],
 };

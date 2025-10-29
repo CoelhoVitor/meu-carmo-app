@@ -10,17 +10,26 @@ function savePDF(model: Model) {
   const surveyPDF = new SurveyPDF(surveyJson);
   surveyPDF.data = model.data;
   surveyPDF.readOnly = true;
-  surveyPDF.save('SolicitacaoAtividadeExterna');
+  surveyPDF.save('SolicitacaoAtividade');
 }
 
 export default function SurveyComponent() {
   const model = new Model(surveyJson);
 
-  // model.addNavigationItem({
-  //   id: 'pdf-export',
-  //   title: 'Salvar como PDF',
-  //   action: () => savePDF(model),
-  // });
+  model.showCompleteButton = false;
+  model.showCompletePage = false;
+
+  model.onCurrentPageChanged.add((sender) => {
+    if (sender.isLastPage) {
+      model.addNavigationItem({
+        id: 'pdf-export',
+        title: 'Salvar como PDF',
+        action: () => savePDF(model),
+      });
+    } else {
+      model.removeNavigationItem('pdf-export');
+    }
+  });
 
   return <Survey model={model} />;
 }
