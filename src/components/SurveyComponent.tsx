@@ -27,7 +27,6 @@ export default function SurveyComponent() {
         action: () => savePDF(model),
       });
     } else {
-      model.removeNavigationItem('pdf-export');
     }
   });
 
