@@ -33,7 +33,8 @@ export function MobileMenu({ onSignOut }: MenuProps) {
               onClick={() => setIsMenuOpen(false)}
             >
               Perfil
-            </Link>            <button
+            </Link>
+            <button
               onClick={() => onSignOut()}
               className="w-full text-left flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-base font-medium"
             >

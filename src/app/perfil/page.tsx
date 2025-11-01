@@ -6,7 +6,7 @@ export default async function PerfilPage() {
 
   return (
     <ProtectedLayout>
-      <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <div className="container mx-auto px-4 py-8 max-w-2xl mt-16">
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">Perfil</h1>
 
