@@ -9,7 +9,7 @@ import { SurveyPDF } from 'survey-pdf';
 function savePDF(model: Model) {
   const surveyPDF = new SurveyPDF(surveyElo);
   surveyPDF.data = model.data;
-  surveyPDF.readOnly = true;
+  surveyPDF.readOnly = false;
   surveyPDF.save('SolicitacaoAtividadeElo');
 }
 
