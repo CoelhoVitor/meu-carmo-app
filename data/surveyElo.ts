@@ -2,7 +2,7 @@ const inscricoes = {
   type: 'panel',
   name: 'inscricoes',
   title: 'Inscrições',
-  state: 'default',
+  state: 'collapsed',
   elements: [
     {
       type: 'text',
@@ -73,22 +73,6 @@ const inscricoes = {
       isRequired: true,
       requiredErrorText: 'Campo obrigatório',
     },
-    {
-      type: 'radiogroup',
-      title: 'Tipo de Atividade',
-      name: 'tipo-de-atividade',
-      choices: ['Acampamento'],
-      isRequired: true,
-      requiredErrorText: 'Campo obrigatório',
-    },
-    {
-      type: 'radiogroup',
-      title: 'Será na sede?',
-      name: 'atividade-na-sede',
-      choices: ['Sim'],
-      isRequired: true,
-      requiredErrorText: 'Campo obrigatório',
-    },
   ],
 };
 
@@ -96,8 +80,47 @@ const informacoesAtividade = {
   type: 'panel',
   name: 'informacoes-atividade',
   title: 'Informações da Atividade',
-  state: 'default',
+  state: 'collapsed',
   elements: [
+    {
+      type: 'radiogroup',
+      title: 'Tipo de Atividade',
+      name: 'tipo-de-atividade',
+      choices: [
+        'Acantonamento',
+        'Acampamento',
+        'Atividade Especial',
+        'Atividade Comunitária',
+        'Atividade Social',
+        'Atividade Cultural',
+        'Atividade com outro(s) GE(s)',
+        'Atividade de Patrulha',
+        'Atividade de Grupo',
+        'Atividade Distrital',
+        'Atividade Regional',
+        'Atividade Nacional',
+        'Excursão ou Passeio',
+        'Jornada Escoteira',
+        'Jornada Sênior',
+        'Visita',
+      ],
+      isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
+    },
+    {
+      type: 'radiogroup',
+      title: 'Local da atividade',
+      name: 'local-da-atividade',
+      isRequired: true,
+      requiredErrorText: 'Campo obrigatório',
+      choices: [
+        'UME Professora Maria Carmelita Proost Villaça (Av. Prof. Aristóteles Menezes, 11 - Ponta da Praia, Santos - SP, 11035-030)',
+        'Base Aérea de Santos (Av. Castelo Branco, S/N - Jardim Cunhambebe (Vicente de Carvalho), Guarujá - SP, 11450-010)',
+      ],
+      showOtherItem: true,
+      otherText: 'Outro (Endereço, Número, Bairro, Cidade, Estado e CEP)',
+      otherErrorText: 'Por favor, especifique',
+    },
     {
       type: 'text',
       title: 'Data inicial',
@@ -124,13 +147,168 @@ const informacoesAtividade = {
       isRequired: true,
       requiredErrorText: 'Campo obrigatório',
     },
+  ],
+};
+
+const dadosProprietarioAtividade = {
+  type: 'panel',
+  name: 'dados-proprietario-atividade',
+  title: 'Dados do proprietário/responsável pelo local da atividade',
+  state: 'collapsed',
+  elements: [
     {
-      type: 'radiogroup',
-      title: 'Cessão de uso',
-      name: 'cessao-de-uso',
-      isRequired: true,
-      requiredErrorText: 'Campo obrigatório',
-      choices: ['Gratuito'],
+      type: 'text',
+      title: 'Nome completo',
+      name: 'nome-completo-proprietario',
+      isRequired: false,
+    },
+    {
+      type: 'text',
+      title: 'E-mail',
+      name: 'email-proprietario',
+      isRequired: false,
+    },
+    {
+      type: 'text',
+      title: 'Telefone 1',
+      name: 'telefone-um-proprietario',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 2',
+      name: 'telefone-dois-proprietario',
+    },
+  ],
+};
+
+const esquemaDeEmergenciaHospital = {
+  type: 'panel',
+  name: 'esquema-de-emergencia-hospital',
+  title: 'Esquema de Emergência - Hospital',
+  state: 'collapsed',
+  elements: [
+    {
+      type: 'text',
+      title: 'Nome do hospital local',
+      name: 'nome-hospital-local',
+    },
+    {
+      type: 'text',
+      title: 'Endereço (Endereço, Número, Bairro, Cidade, Estado e CEP)',
+      name: 'endereco-hospital-local',
+    },
+    {
+      type: 'text',
+      title: 'Distância do local do evento ao hospital (km)',
+      name: 'distancia-hospital-local',
+    },
+    {
+      type: 'text',
+      title: 'Duração estimada do trajeto (min)',
+      name: 'duracao-trajeto-hospital-local',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 1',
+      name: 'telefone-um-hospital-local',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 2',
+      name: 'telefone-dois-hospital-local',
+    },
+    {
+      type: 'text',
+      title: 'Pontos de referência',
+      name: 'pontos-de-referencia-hospital-local',
+    },
+  ],
+};
+
+const esquemaDeEmergenciaPolicia = {
+  type: 'panel',
+  name: 'esquema-de-emergencia-policia',
+  title: 'Esquema de Emergência - Polícia',
+  state: 'collapsed',
+  elements: [
+    {
+      type: 'text',
+      title: 'Nome da delegacia/polícia local',
+      name: 'nome-policia-local',
+    },
+    {
+      type: 'text',
+      title: 'Endereço (Endereço, Número, Bairro, Cidade, Estado e CEP)',
+      name: 'endereco-policia-local',
+    },
+    {
+      type: 'text',
+      title: 'Distância do local do evento à polícia (km)',
+      name: 'distancia-policia-local',
+    },
+    {
+      type: 'text',
+      title: 'Duração estimada do trajeto (min)',
+      name: 'duracao-trajeto-policia-local',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 1',
+      name: 'telefone-um-policia-local',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 2',
+      name: 'telefone-dois-policia-local',
+    },
+    {
+      type: 'text',
+      title: 'Pontos de referência',
+      name: 'pontos-de-referencia-policia-local',
+    },
+  ],
+};
+
+const esquemaDeEmergenciaBombeiros = {
+  type: 'panel',
+  name: 'esquema-de-emergencia-bombeiros',
+  title: 'Esquema de Emergência - Bombeiros',
+  state: 'collapsed',
+  elements: [
+    {
+      type: 'text',
+      title: 'Nome do corpo de bombeiros local',
+      name: 'nome-bombeiros-local',
+    },
+    {
+      type: 'text',
+      title: 'Endereço (Endereço, Número, Bairro, Cidade, Estado e CEP)',
+      name: 'endereco-bombeiros-local',
+    },
+    {
+      type: 'text',
+      title: 'Distância do local do evento ao corpo de bombeiros (km)',
+      name: 'distancia-bombeiros-local',
+    },
+    {
+      type: 'text',
+      title: 'Duração estimada do trajeto (min)',
+      name: 'duracao-trajeto-bombeiros-local',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 1',
+      name: 'telefone-um-bombeiros-local',
+    },
+    {
+      type: 'text',
+      title: 'Telefone 2',
+      name: 'telefone-dois-bombeiros-local',
+    },
+    {
+      type: 'text',
+      title: 'Pontos de referência',
+      name: 'pontos-de-referencia-bombeiros-local',
     },
   ],
 };
@@ -138,7 +316,7 @@ const informacoesAtividade = {
 const anexoDocumentos = {
   type: 'panel',
   name: 'anexo-de-documentos',
-  title: 'Anexo de Documentos (opcional)',
+  title: 'Anexo de Documentos',
   state: 'collapsed',
   elements: [
     {
@@ -164,7 +342,7 @@ const anexoDocumentos = {
 
 const formulario = {
   name: 'formulario',
-  title: 'Solicitação de Atividade',
+  title: 'Solicitação de Atividade - ELO',
   elements: [
     {
       type: 'text',
@@ -193,14 +371,7 @@ const formulario = {
       type: 'radiogroup',
       title: 'Nível da Atividade',
       name: 'nivel-da-atividade',
-      choices: [
-        'Local-Seção',
-        'Grupo',
-        'Distrital',
-        'Regional',
-        'Nacional',
-        'Internacional',
-      ],
+      choices: ['Distrital'],
       isRequired: true,
       requiredErrorText: 'Campo obrigatório',
     },
@@ -209,6 +380,18 @@ const formulario = {
     },
     {
       ...informacoesAtividade,
+    },
+    {
+      ...dadosProprietarioAtividade,
+    },
+    {
+      ...esquemaDeEmergenciaHospital,
+    },
+    {
+      ...esquemaDeEmergenciaPolicia,
+    },
+    {
+      ...esquemaDeEmergenciaBombeiros,
     },
     {
       ...anexoDocumentos,
@@ -271,7 +454,7 @@ const final = {
   ],
 };
 
-export const surveyJson = {
+export const surveyElo = {
   checkErrorsMode: 'onValueChanged',
   textUpdateMode: 'onTyping',
   pages: [formulario, por, final],

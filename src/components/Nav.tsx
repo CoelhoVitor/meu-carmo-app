@@ -27,8 +27,8 @@ export default function Nav() {
           </div>
 
           {/* Menus (Desktop e Mobile) */}
-          <DesktopMenu onSignOut={signOut} />
-          <MobileMenu onSignOut={signOut} />
+          {/* <DesktopMenu onSignOut={signOut} />
+          <MobileMenu onSignOut={signOut} /> */}
         </div>
       </div>
     </nav>

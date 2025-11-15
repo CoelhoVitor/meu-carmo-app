@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import NavLateral from './NavLateral';
 
 export default function Header() {
   return (
     <header className="fixed top-0 w-full bg-white z-50 h-20 flex items-center justify-between px-10 shadow-lg">
+      {/* <NavLateral /> */}
+
       <Link href="/home" className="flex items-center">
         <div className="relative">
           <Image

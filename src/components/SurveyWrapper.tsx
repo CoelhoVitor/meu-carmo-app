@@ -1,11 +1,25 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { TipoSurvey } from '@/enums/TipoSurvey';
 
-const SurveyComponent = dynamic(() => import('./SurveyComponent'), {
+const SurveySedeComponent = dynamic(() => import('./SurveySedeComponent'), {
   ssr: false,
 });
 
-export default function SurveyWrapper() {
-  return <SurveyComponent />;
+const SurveyEloComponent = dynamic(() => import('./SurveyEloComponent'), {
+  ssr: false,
+});
+
+export default function SurveyWrapper({
+  tipoSurvey,
+}: {
+  tipoSurvey: TipoSurvey;
+}) {
+  switch (tipoSurvey) {
+    case TipoSurvey.Sede:
+      return <SurveySedeComponent />;
+    case TipoSurvey.Elo:
+      return <SurveyEloComponent />;
+  }
 }
