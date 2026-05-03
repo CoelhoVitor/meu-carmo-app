@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useEffect } from 'react';
-import { Action, Model } from 'survey-core';
+import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import 'survey-core/survey-core.css';
 import { SurveyPDF } from 'survey-pdf';
@@ -26,40 +26,22 @@ export default function GenericSurveyComponent({
   useEffect(() => {
     const saveItemId = 'pdf-export';
     const signItemId = 'pdf-sign';
-    let saveAction: Action;
-    let signAction: Action;
-
-    const ensureNavigationActions = () => {
-      if (!saveAction) {
-        saveAction = model.addNavigationItem({
-          id: saveItemId,
-          title: 'Salvar como PDF',
-          visible: false,
-          action: () => savePDF(),
-        });
-      }
-
-      if (!signAction) {
-        signAction = model.addNavigationItem({
-          id: signItemId,
-          title: 'Assinar',
-          visible: false,
-          action: () => criarDocumentoParaAssinar(),
-        });
-      }
-    };
 
     const updateNavigationItems = () => {
-      ensureNavigationActions();
+      if (model.isLastPage) {
+        model.addNavigationItem({
+          id: saveItemId,
+          title: 'Salvar como PDF',
+          visible: true,
+          action: () => savePDF(),
+        });
 
-      const visible = model.isLastPage;
-
-      if (saveAction) {
-        saveAction.visible = visible;
-      }
-
-      if (signAction) {
-        signAction.visible = visible;
+        model.addNavigationItem({
+          id: signItemId,
+          title: 'Assinar',
+          visible: true,
+          action: () => criarDocumentoParaAssinar(),
+        });
       }
     };
 
@@ -76,16 +58,18 @@ export default function GenericSurveyComponent({
       surveyPDF.readOnly = true;
 
       const dataurlstring = await surveyPDF.raw('dataurlstring');
-      const prefix = 'data:application/pdf;base64,';
-      const base64Pdf = dataurlstring.startsWith(prefix)
-        ? dataurlstring.substring(prefix.length)
-        : dataurlstring;
+
+      const prefix = ';base64,';
+      const prefixIndex = dataurlstring.indexOf(prefix);
+
+      const base64Pdf =
+        prefixIndex !== -1
+          ? dataurlstring.substring(prefixIndex + prefix.length)
+          : dataurlstring;
 
       console.log('PDF base64 ready for ZapSign:', base64Pdf.substring(0, 120));
       // TODO: montar o payload com base64_pdf e enviar para a API ZapSign.
     }
-
-    // updateNavigationItems();
 
     model.onCurrentPageChanged.add(updateNavigationItems);
   }, [model, surveyDefinition, pdfFileName]);
