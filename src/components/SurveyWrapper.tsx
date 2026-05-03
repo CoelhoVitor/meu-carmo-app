@@ -2,8 +2,8 @@
 
 import dynamic from 'next/dynamic';
 import { TipoSurvey } from '@/enums/TipoSurvey';
-import { surveyElo } from '../../data/surveyElo';
-import { surveySede } from '../../data/surveySede';
+import { surveyElo } from '../../data/surveyEloIsRequiredFalse';
+import { surveySede } from '../../data/surveySedeIsRequiredFalse';
 
 const GenericSurveyComponent = dynamic(
   () => import('./GenericSurveyComponent'),

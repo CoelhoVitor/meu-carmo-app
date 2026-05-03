@@ -3,11 +3,12 @@
 import { useMemo, useEffect } from 'react';
 import { Action, Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
-// import 'survey-core/survey-core.css';
+import 'survey-core/survey-core.css';
 import { SurveyPDF } from 'survey-pdf';
+import { SurveyDefinition } from '@/types/survey';
 
 interface GenericSurveyComponentProps {
-  surveyDefinition: Record<string, unknown>;
+  surveyDefinition: SurveyDefinition;
   pdfFileName: string;
 }
 
@@ -84,7 +85,7 @@ export default function GenericSurveyComponent({
       // TODO: montar o payload com base64_pdf e enviar para a API ZapSign.
     }
 
-    updateNavigationItems();
+    // updateNavigationItems();
 
     model.onCurrentPageChanged.add(updateNavigationItems);
   }, [model, surveyDefinition, pdfFileName]);

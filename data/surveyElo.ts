@@ -1,4 +1,6 @@
-const inscricoes = {
+import { SurveyPanel, SurveyPage, SurveyDefinition } from '@/types/survey';
+
+const inscricoes: SurveyPanel = {
   type: 'panel',
   name: 'inscricoes',
   title: 'Inscrições',
@@ -76,7 +78,7 @@ const inscricoes = {
   ],
 };
 
-const informacoesAtividade = {
+const informacoesAtividade: SurveyPanel = {
   type: 'panel',
   name: 'informacoes-atividade',
   title: 'Informações da Atividade',
@@ -150,7 +152,7 @@ const informacoesAtividade = {
   ],
 };
 
-const dadosProprietarioAtividade = {
+const dadosProprietarioAtividade: SurveyPanel = {
   type: 'panel',
   name: 'dados-proprietario-atividade',
   title: 'Dados do proprietário/responsável pelo local da atividade',
@@ -181,7 +183,7 @@ const dadosProprietarioAtividade = {
   ],
 };
 
-const esquemaDeEmergenciaHospital = {
+const esquemaDeEmergenciaHospital: SurveyPanel = {
   type: 'panel',
   name: 'esquema-de-emergencia-hospital',
   title: 'Esquema de Emergência - Hospital',
@@ -225,7 +227,7 @@ const esquemaDeEmergenciaHospital = {
   ],
 };
 
-const esquemaDeEmergenciaPolicia = {
+const esquemaDeEmergenciaPolicia: SurveyPanel = {
   type: 'panel',
   name: 'esquema-de-emergencia-policia',
   title: 'Esquema de Emergência - Polícia',
@@ -269,7 +271,7 @@ const esquemaDeEmergenciaPolicia = {
   ],
 };
 
-const esquemaDeEmergenciaBombeiros = {
+const esquemaDeEmergenciaBombeiros: SurveyPanel = {
   type: 'panel',
   name: 'esquema-de-emergencia-bombeiros',
   title: 'Esquema de Emergência - Bombeiros',
@@ -313,7 +315,7 @@ const esquemaDeEmergenciaBombeiros = {
   ],
 };
 
-const anexoDocumentos = {
+const anexoDocumentos: SurveyPanel = {
   type: 'panel',
   name: 'anexo-de-documentos',
   title: 'Anexo de Documentos',
@@ -340,7 +342,7 @@ const anexoDocumentos = {
   ],
 };
 
-const formulario = {
+const formulario: SurveyPage = {
   name: 'formulario',
   title: 'Solicitação de Atividade - ELO',
   elements: [
@@ -399,7 +401,7 @@ const formulario = {
   ],
 };
 
-const por = {
+const por: SurveyPanel = {
   name: 'por-atividade',
   type: 'panel',
   title: 'POR - Princípios, Organização e Regras',
@@ -441,7 +443,7 @@ const por = {
   ],
 };
 
-const final = {
+const final: SurveyPage = {
   name: 'pagina-final',
   elements: [
     {
@@ -454,7 +456,7 @@ const final = {
   ],
 };
 
-export const surveyElo = {
+export const surveyElo: SurveyDefinition = {
   checkErrorsMode: 'onValueChanged',
   textUpdateMode: 'onTyping',
   pages: [formulario, por, final],

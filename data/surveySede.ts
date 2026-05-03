@@ -1,4 +1,6 @@
-const inscricoes = {
+import { SurveyPanel, SurveyPage, SurveyDefinition } from '@/types/survey';
+
+const inscricoes: SurveyPanel = {
   type: 'panel',
   name: 'inscricoes',
   title: 'Inscrições',
@@ -92,7 +94,7 @@ const inscricoes = {
   ],
 };
 
-const informacoesAtividade = {
+const informacoesAtividade: SurveyPanel = {
   type: 'panel',
   name: 'informacoes-atividade',
   title: 'Informações da Atividade',
@@ -135,7 +137,7 @@ const informacoesAtividade = {
   ],
 };
 
-const anexoDocumentos = {
+const anexoDocumentos: SurveyPanel = {
   type: 'panel',
   name: 'anexo-de-documentos',
   title: 'Anexo de Documentos (opcional)',
@@ -162,7 +164,7 @@ const anexoDocumentos = {
   ],
 };
 
-const formulario = {
+const formulario: SurveyPage = {
   name: 'formulario',
   title: 'Solicitação de Atividade',
   elements: [
@@ -216,7 +218,7 @@ const formulario = {
   ],
 };
 
-const por = {
+const por: SurveyPanel = {
   name: 'por-atividade',
   type: 'panel',
   title: 'POR - Princípios, Organização e Regras',
@@ -258,7 +260,7 @@ const por = {
   ],
 };
 
-const final = {
+const final: SurveyPage = {
   name: 'pagina-final',
   elements: [
     {
@@ -271,7 +273,7 @@ const final = {
   ],
 };
 
-export const surveySede = {
+export const surveySede: SurveyDefinition = {
   checkErrorsMode: 'onValueChanged',
   textUpdateMode: 'onTyping',
   pages: [formulario, por, final],
