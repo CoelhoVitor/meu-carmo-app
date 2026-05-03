@@ -2,14 +2,15 @@
 
 import dynamic from 'next/dynamic';
 import { TipoSurvey } from '@/enums/TipoSurvey';
+import { surveyElo } from '../../data/surveyElo';
+import { surveySede } from '../../data/surveySede';
 
-const SurveySedeComponent = dynamic(() => import('./SurveySedeComponent'), {
-  ssr: false,
-});
-
-const SurveyEloComponent = dynamic(() => import('./SurveyEloComponent'), {
-  ssr: false,
-});
+const GenericSurveyComponent = dynamic(
+  () => import('./GenericSurveyComponent'),
+  {
+    ssr: false,
+  },
+);
 
 export default function SurveyWrapper({
   tipoSurvey,
@@ -18,8 +19,18 @@ export default function SurveyWrapper({
 }) {
   switch (tipoSurvey) {
     case TipoSurvey.Sede:
-      return <SurveySedeComponent />;
+      return (
+        <GenericSurveyComponent
+          surveyDefinition={surveySede}
+          pdfFileName="SolicitacaoAtividade - Sede"
+        />
+      );
     case TipoSurvey.Elo:
-      return <SurveyEloComponent />;
+      return (
+        <GenericSurveyComponent
+          surveyDefinition={surveyElo}
+          pdfFileName="SolicitacaoAtividade - Elo"
+        />
+      );
   }
 }

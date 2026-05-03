@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 export default function Home() {
   const botoes = [
-    // {
-    //   texto: 'Sede',
-    //   link: '/surveySede',
-    // },
+    {
+      texto: 'Sede',
+      link: '/surveySede',
+    },
     {
       texto: 'ELO',
       link: '/surveyElo',

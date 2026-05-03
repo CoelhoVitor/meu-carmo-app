@@ -1,0 +1,30 @@
+{
+  "title": "teste_requisicao",
+  "folderId": "folder-id-123",
+  "message": "Segue o documento para assinatura - teste",
+  "documents": [
+    {
+      "id": "documento-sede-1",
+      "fileName": "Documento_Sede_1.pdf",
+      "contentType": "application/pdf"
+    }
+  ],
+  "signatories": [
+    {
+      "id": "signatario-sede-1",
+      "name": "João da Silva a Receber",
+      "email": "vitorvcs@hotmail.com",
+      "qualification": "Representante Legal",
+      "authMethod": "EMAIL"
+    }
+  ],
+  "fields": [
+    {
+      "type": "SIGNATURE",
+      "documentId": "documento-sede-1",
+      "signatoryId": "signatario-sede-1",
+      "pageNumber": 1,
+      "position": { "x": 100, "y": 600, "width": 180, "height": 50 }
+    }
+  ]
+}

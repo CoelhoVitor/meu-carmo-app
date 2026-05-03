@@ -1,0 +1,48 @@
+{
+  "title": "string",
+  "folderId": "string",
+  "deadline": "2025-12-31T23:59:59Z",
+  "message": "string (máx. 500 caracteres)",
+  "documents": [
+    {
+      "id": "string",
+      "fileName": "string",
+      "contentType": "application/pdf"
+    }
+  ],
+  "signatories": [
+    {
+      "id": "string",
+      "name": "string",
+      "email": "user@example.com",
+      "qualification": "string",
+      "authMethod": "EMAIL|SMS|WHATSAPP",
+      "phoneNumber": "string (opcional)",
+      "signingOrder": 1
+    }
+  ],
+  "observers": [
+    {
+      "email": "observer@example.com",
+      "notifyOnSent": false,
+      "notifyOnCompletion": true
+    }
+  ],
+  "fields": [
+    {
+      "type": "SIGNATURE|INITIALS|TEXT",
+      "documentId": "string",
+      "signatoryId": "string",
+      "pageNumber": 1,
+      "position": {
+        "x": 100,
+        "y": 200,
+        "width": 150,
+        "height": 50
+      },
+      "properties": {
+        "label": "Texto opcional (para campos TEXT)"
+      }
+    }
+  ]
+}
