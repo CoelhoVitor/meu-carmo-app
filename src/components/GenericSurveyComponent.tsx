@@ -57,18 +57,58 @@ export default function GenericSurveyComponent({
       surveyPDF.data = model.data;
       surveyPDF.readOnly = true;
 
-      const dataurlstring = await surveyPDF.raw('dataurlstring');
+      const rawBase64Pdf = await surveyPDF.raw('dataurlstring');
 
       const prefix = ';base64,';
-      const prefixIndex = dataurlstring.indexOf(prefix);
+      const prefixIndex = rawBase64Pdf.indexOf(prefix);
 
-      const base64Pdf =
+      const adjustedBase64Pdf =
         prefixIndex !== -1
-          ? dataurlstring.substring(prefixIndex + prefix.length)
-          : dataurlstring;
+          ? rawBase64Pdf.substring(prefixIndex + prefix.length)
+          : rawBase64Pdf;
 
-      console.log('PDF base64 ready for ZapSign:', base64Pdf.substring(0, 120));
-      // TODO: montar o payload com base64_pdf e enviar para a API ZapSign.
+      console.log(
+        'PDF base64 ready for ZapSign:',
+        adjustedBase64Pdf.substring(0, 120),
+      );
+
+      try {
+        console.log('Enviando documento para ZapSign...');
+
+        const response = await fetch('/api/zapsign/criar-documento', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            base64_pdf: adjustedBase64Pdf,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.error('Erro ao criar documento ZapSign:', result);
+          alert(`Erro ao enviar documento: ${result.error}`);
+          return;
+        }
+
+        console.log('Documento criado com sucesso:', result.data);
+        alert(`Documento enviado com sucesso! Token: ${result.data.token}`);
+
+        // Opcional: você pode redirecionar para a página de assinatura
+        if (result.data.signers && result.data.signers.length > 0) {
+          const signUrl = result.data.signers[0].sign_url;
+          console.log('URL de assinatura:', signUrl);
+          // Descomentar se quiser redirecionar automaticamente:
+          window.open(signUrl, '_blank');
+        }
+      } catch (error) {
+        console.error('Erro ao enviar documento:', error);
+        alert(
+          'Erro ao enviar documento. Verifique o console para mais detalhes.',
+        );
+      }
     }
 
     model.onCurrentPageChanged.add(updateNavigationItems);
