@@ -116,6 +116,7 @@ export default function GenericSurveyComponent({
       }
     }
 
+    model.onCurrentPageChanged.remove(updateNavigationItems);
     model.onCurrentPageChanged.add(updateNavigationItems);
   }, [model, surveyDefinition, pdfFileName]);
 
