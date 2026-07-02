@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { DesktopMenu, MobileMenu } from './NavMenus';
-import { signOut } from '@/features/auth/actions/deslogar';
 
 export default function Nav() {
   return (
@@ -25,10 +23,6 @@ export default function Nav() {
               </span>
             </Link>
           </div>
-
-          {/* Menus (Desktop e Mobile) */}
-          {/* <DesktopMenu onSignOut={signOut} />
-          <MobileMenu onSignOut={signOut} /> */}
         </div>
       </div>
     </nav>

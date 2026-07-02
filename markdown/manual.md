@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O Meu Carmo App é uma aplicação web desenvolvida com Next.js, TypeScript e Prisma, destinada a gerenciar solicitações de atividades e autenticação de usuários. A aplicação utiliza PostgreSQL como banco de dados e oferece uma interface responsiva com suporte a temas claro e escuro.
+O Meu Carmo App é uma aplicação web desenvolvida com Next.js e TypeScript, destinada a gerenciar solicitações de atividades e autenticação de usuários. A aplicação oferece uma interface responsiva com suporte a temas claro e escuro.
 
 ## Funcionalidades Principais
 
@@ -44,9 +44,8 @@ O Meu Carmo App é uma aplicação web desenvolvida com Next.js, TypeScript e Pr
 ## Tecnologias Utilizadas
 
 - **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS.
-- **Backend**: Next.js API Routes, Prisma ORM.
-- **Banco de Dados**: PostgreSQL.
-- **Autenticação**: JWT, cookies, hashing de senhas com Argon2.
+- **Backend**: Next.js API Routes.
+- **Autenticação**: cookies e hashing de senhas com Argon2 estão presentes no código, mas a persistência foi desabilitada.
 - **Surveys**: Survey.js (Core, React UI, PDF).
 - **Outros**: Next Themes para gerenciamento de temas, Lucide React para ícones.
 
@@ -55,15 +54,13 @@ O Meu Carmo App é uma aplicação web desenvolvida com Next.js, TypeScript e Pr
 - `src/app/`: Páginas e rotas da aplicação.
 - `src/components/`: Componentes reutilizáveis (Header, Nav, Surveys, etc.).
 - `src/auth/`: Lógica de autenticação (JWT, cookies, sessões).
-- `prisma/`: Schema do banco de dados e migrações.
 - `data/`: Dados estáticos para os surveys.
 
 ## Como Executar
 
 1. Instale as dependências: `npm install`.
 2. Configure o banco de dados PostgreSQL e defina a variável `DATABASE_URL` no arquivo `.env`.
-3. Execute as migrações: `npx prisma migrate dev`.
-4. Inicie o servidor de desenvolvimento: `npm run dev`.
+3. Inicie o servidor de desenvolvimento: `npm run dev`.
 
 ## Notas
 

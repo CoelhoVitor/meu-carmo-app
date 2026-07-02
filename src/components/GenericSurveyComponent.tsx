@@ -53,8 +53,6 @@ export default function GenericSurveyComponent({
     }
 
     async function iniciarProcessoDeAssinatura() {
-      // TODO abrir modal para informar Nome e Email do usuário.
-      // Abaixo dos campos, criar botão "Enviar" e então chamar o método criarDocumentoParaAssinar()
       criarDocumentoParaAssinar();
     }
 
