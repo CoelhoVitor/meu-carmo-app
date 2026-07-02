@@ -40,7 +40,7 @@ export default function GenericSurveyComponent({
           id: signItemId,
           title: 'Assinar',
           visible: true,
-          action: () => criarDocumentoParaAssinar(),
+          action: () => iniciarProcessoDeAssinatura(),
         });
       }
     };
@@ -50,6 +50,12 @@ export default function GenericSurveyComponent({
       surveyPDF.data = model.data;
       surveyPDF.readOnly = true;
       await surveyPDF.save(pdfFileName);
+    }
+
+    async function iniciarProcessoDeAssinatura() {
+      // TODO abrir modal para informar Nome e Email do usuário.
+      // Abaixo dos campos, criar botão "Enviar" e então chamar o método criarDocumentoParaAssinar()
+      criarDocumentoParaAssinar();
     }
 
     async function criarDocumentoParaAssinar() {
@@ -82,6 +88,7 @@ export default function GenericSurveyComponent({
           },
           body: JSON.stringify({
             base64_pdf: adjustedBase64Pdf,
+            emailDestinatario: '',
           }),
         });
 

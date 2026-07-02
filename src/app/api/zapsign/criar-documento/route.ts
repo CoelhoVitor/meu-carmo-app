@@ -8,16 +8,19 @@ interface ZapSignPayload {
     email: string;
     auth_mode: string;
     send_automatic_email: boolean;
+    custom_message: string;
   }>;
 }
 
 interface ZapSignRequest {
   base64_pdf: string;
+  emailDestinatario: string;
 }
 
 export async function POST(req: Request) {
   try {
-    const { base64_pdf } = (await req.json()) as ZapSignRequest;
+    const { base64_pdf, emailDestinatario } =
+      (await req.json()) as ZapSignRequest;
 
     if (!base64_pdf) {
       return NextResponse.json(
@@ -40,9 +43,11 @@ export async function POST(req: Request) {
       signers: [
         {
           name: 'Destinatário Teste',
-          email: 'naoimp2@outlook.com',
+          email: `${emailDestinatario}`,
           auth_mode: 'assinaturaTela',
           send_automatic_email: true,
+          custom_message:
+            'Olá, chefe!\nSegue a solicitação de atividade para assinatura.',
         },
       ],
     };
