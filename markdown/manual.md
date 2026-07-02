@@ -64,5 +64,4 @@ O Meu Carmo App é uma aplicação web desenvolvida com Next.js e TypeScript, de
 
 ## Notas
 
-- A funcionalidade de "Supersign" foi removida deste manual, pois não está implementada corretamente e será alterada.
 - A aplicação está em desenvolvimento e pode sofrer alterações futuras.
