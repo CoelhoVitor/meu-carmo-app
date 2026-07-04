@@ -44,7 +44,6 @@ export async function addSignatureAnchorsToPdf(
   const anchors = [
     { text: '<<chefe_assinatura>>', y: 60 },
     { text: '<<diretoria_assinatura>>', y: 40 },
-    { text: '<<comissao_assinatura>>', y: 20 },
   ];
 
   anchors.forEach(({ text, y }) => {

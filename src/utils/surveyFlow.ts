@@ -13,7 +13,6 @@ interface SignerDefaultConfig {
 export interface SignerDefaults {
   chefe: SignerDefaultConfig;
   diretoria: SignerDefaultConfig;
-  comissao: SignerDefaultConfig;
 }
 
 export interface SurveyFlowConfig {
@@ -38,19 +37,12 @@ const baseSignerDefaults: SignerDefaults = {
     authMode: 'tokenEmail',
     sendAutomaticEmail: true,
   },
-  comissao: {
-    name: 'Comissão',
-    email: 'naoimp2@outlook.com',
-    authMode: 'tokenEmail',
-    sendAutomaticEmail: true,
-  },
 };
 
 function createSignerDefaults(): SignerDefaults {
   return {
     chefe: { ...baseSignerDefaults.chefe },
     diretoria: { ...baseSignerDefaults.diretoria },
-    comissao: { ...baseSignerDefaults.comissao },
   };
 }
 

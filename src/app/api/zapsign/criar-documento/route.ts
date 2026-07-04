@@ -51,15 +51,6 @@ function buildSigners(
           'Olá, diretoria! Segue a solicitação de atividade para análise.',
         signature_placement: '<<diretoria_assinatura>>',
       },
-      {
-        name: signerDefaults.comissao.name,
-        email: signerDefaults.comissao.email,
-        auth_mode: signerDefaults.comissao.authMode,
-        send_automatic_email: signerDefaults.comissao.sendAutomaticEmail,
-        custom_message:
-          'Olá, comissão! Segue a solicitação de atividade para análise.',
-        signature_placement: '<<comissao_assinatura>>',
-      },
     ];
   }
 
