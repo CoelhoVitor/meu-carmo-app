@@ -121,7 +121,6 @@ export async function POST(req: Request) {
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.error('Erro ZapSign:', responseData);
       return NextResponse.json(
         { error: 'Erro ao criar documento no ZapSign', details: responseData },
         { status: response.status },
@@ -134,10 +133,8 @@ export async function POST(req: Request) {
       data: responseData,
     });
   } catch (error) {
-    console.error('Erro ao processar requisição ZapSign:', error);
-
     return NextResponse.json(
-      { error: 'Erro interno ao processar requisição' },
+      { error: `Erro interno ao processar requisição: ${error}` },
       { status: 500 },
     );
   }

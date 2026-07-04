@@ -21,8 +21,8 @@ Exemplo para obter o Token de Acesso
 
 com o Body
 {
-"username": "vitorvcs@hotmail.com",
-"password": "#Benedito777"
+"username": "[email]",
+"password": "[senha]"
 }
 
 Exemplo de resposta

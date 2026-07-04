@@ -33,7 +33,7 @@ const baseSignerDefaults: SignerDefaults = {
   },
   diretoria: {
     name: 'Diretoria',
-    email: 'naoimp2@outlook.com',
+    email: 'diretoria@gemarcarmo.org.br',
     authMode: 'tokenEmail',
     sendAutomaticEmail: true,
   },
