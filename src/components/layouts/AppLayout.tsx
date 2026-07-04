@@ -3,7 +3,7 @@
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow">
+      <main className="grow">
         <div
           className="fixed inset-0"
           style={{

@@ -1,6 +1,6 @@
 import { TipoSurvey } from '@/enums/TipoSurvey';
-import { surveyElo } from '@/data/surveyEloIsRequiredFalse';
-import { surveySede } from '@/data/surveySedeIsRequiredFalse';
+import { surveyElo } from '@/data/surveyElo';
+import { surveySede } from '@/data/surveySede';
 import { SurveyDefinition } from '@/types/survey';
 
 interface SignerDefaultConfig {
