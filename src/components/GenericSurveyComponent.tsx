@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useRef, useState } from 'react';
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import 'survey-core/survey-core.css';
@@ -22,6 +22,8 @@ export default function GenericSurveyComponent({
 }: GenericSurveyComponentProps) {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const surveyFlowConfigRef = useRef(surveyFlowConfig);
+  const hasAddedCustomNavigationItemsRef = useRef(false);
 
   const model = useMemo(() => {
     const surveyModel = new Model(surveyDefinition);
@@ -31,25 +33,32 @@ export default function GenericSurveyComponent({
   }, [surveyDefinition]);
 
   useEffect(() => {
+    surveyFlowConfigRef.current = surveyFlowConfig;
+    hasAddedCustomNavigationItemsRef.current = false;
+
     const saveItemId = 'pdf-export';
     const signItemId = 'pdf-sign';
 
     const updateNavigationItems = () => {
-      if (model.isLastPage) {
-        model.addNavigationItem({
-          id: saveItemId,
-          title: 'Salvar como PDF',
-          visible: true,
-          action: () => savePDF(),
-        });
-
-        model.addNavigationItem({
-          id: signItemId,
-          title: 'Assinar',
-          visible: true,
-          action: () => iniciarProcessoDeAssinatura(),
-        });
+      if (!model.isLastPage || hasAddedCustomNavigationItemsRef.current) {
+        return;
       }
+
+      hasAddedCustomNavigationItemsRef.current = true;
+
+      model.addNavigationItem({
+        id: saveItemId,
+        title: 'Salvar como PDF',
+        visible: true,
+        action: () => savePDF(),
+      });
+
+      model.addNavigationItem({
+        id: signItemId,
+        title: 'Assinar',
+        visible: true,
+        action: () => iniciarProcessoDeAssinatura(),
+      });
     };
 
     async function savePDF() {
@@ -100,7 +109,7 @@ export default function GenericSurveyComponent({
           body: JSON.stringify({
             base64_pdf: preparedBase64Pdf,
             emailDestinatario: '',
-            surveyFlowConfig,
+            surveyFlowConfig: surveyFlowConfigRef.current,
           }),
         });
 
@@ -141,15 +150,15 @@ export default function GenericSurveyComponent({
       }
     }
 
-    model.onCurrentPageChanged.remove(updateNavigationItems);
     model.onCurrentPageChanged.add(updateNavigationItems);
   }, [model, surveyDefinition, pdfFileName, surveyFlowConfig]);
 
   return (
     <div className="w-full">
+      <Survey model={model} />
       {statusMessage ? (
         <div
-          className={`mt-4 rounded-md border px-4 py-3 text-sm ${
+          className={`fixed bottom-4 left-4 z-50 max-w-sm rounded-lg border px-4 py-3 text-sm shadow-lg ${
             isSubmitting
               ? 'border-blue-200 bg-blue-50 text-blue-700'
               : statusMessage.includes('Erro')
@@ -160,7 +169,6 @@ export default function GenericSurveyComponent({
           {statusMessage}
         </div>
       ) : null}
-      <Survey model={model} />
     </div>
   );
 }

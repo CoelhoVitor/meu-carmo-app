@@ -104,7 +104,7 @@ export async function POST(req: Request) {
 
     const observers = [
       process.env.NOTIFICATION_EMAIL_1 ?? 'vitorvcs@hotmail.com',
-      process.env.NOTIFICATION_EMAIL_2 ?? 'naoimp2@outlook.com',
+      process.env.NOTIFICATION_EMAIL_2 ?? 'diretoria@gemarcarmo.org.br',
     ];
 
     const payload: ZapSignPayload = {
