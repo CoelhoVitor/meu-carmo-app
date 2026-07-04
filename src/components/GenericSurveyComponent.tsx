@@ -1,21 +1,28 @@
 'use client';
 
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { Model } from 'survey-core';
 import { Survey } from 'survey-react-ui';
 import 'survey-core/survey-core.css';
 import { SurveyPDF } from 'survey-pdf';
 import { SurveyDefinition } from '@/types/survey';
+import { SurveyFlowConfig } from '@/utils/surveyFlow';
+import { addSignatureAnchorsToPdf } from '@/utils/pdfSignatureAnchors';
 
 interface GenericSurveyComponentProps {
   surveyDefinition: SurveyDefinition;
   pdfFileName: string;
+  surveyFlowConfig: SurveyFlowConfig;
 }
 
 export default function GenericSurveyComponent({
   surveyDefinition,
   pdfFileName,
+  surveyFlowConfig,
 }: GenericSurveyComponentProps) {
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const model = useMemo(() => {
     const surveyModel = new Model(surveyDefinition);
     surveyModel.showCompleteButton = false;
@@ -57,6 +64,9 @@ export default function GenericSurveyComponent({
     }
 
     async function criarDocumentoParaAssinar() {
+      setIsSubmitting(true);
+      setStatusMessage('Enviando documento para assinatura...');
+
       const surveyPDF = new SurveyPDF(surveyDefinition);
       surveyPDF.data = model.data;
       surveyPDF.readOnly = true;
@@ -71,9 +81,12 @@ export default function GenericSurveyComponent({
           ? rawBase64Pdf.substring(prefixIndex + prefix.length)
           : rawBase64Pdf;
 
+      const preparedBase64Pdf =
+        await addSignatureAnchorsToPdf(adjustedBase64Pdf);
+
       console.log(
         'PDF base64 ready for ZapSign:',
-        adjustedBase64Pdf.substring(0, 120),
+        preparedBase64Pdf.substring(0, 120),
       );
 
       try {
@@ -85,8 +98,9 @@ export default function GenericSurveyComponent({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            base64_pdf: adjustedBase64Pdf,
+            base64_pdf: preparedBase64Pdf,
             emailDestinatario: '',
+            surveyFlowConfig,
           }),
         });
 
@@ -94,11 +108,17 @@ export default function GenericSurveyComponent({
 
         if (!response.ok) {
           console.error('Erro ao criar documento ZapSign:', result);
+          setStatusMessage(
+            `Erro ao enviar documento: ${result.error || 'Tente novamente.'}`,
+          );
           alert(`Erro ao enviar documento: ${result.error}`);
           return;
         }
 
         console.log('Documento criado com sucesso:', result.data);
+        setStatusMessage(
+          'Documento enviado com sucesso. O fluxo de assinatura foi iniciado.',
+        );
         alert(`Documento enviado com sucesso! Token: ${result.data.token}`);
 
         // Opcional: você pode redirecionar para a página de assinatura
@@ -110,15 +130,37 @@ export default function GenericSurveyComponent({
         }
       } catch (error) {
         console.error('Erro ao enviar documento:', error);
+        setStatusMessage(
+          'Erro ao enviar documento. Verifique o console para mais detalhes.',
+        );
         alert(
           'Erro ao enviar documento. Verifique o console para mais detalhes.',
         );
+      } finally {
+        setIsSubmitting(false);
       }
     }
 
     model.onCurrentPageChanged.remove(updateNavigationItems);
     model.onCurrentPageChanged.add(updateNavigationItems);
-  }, [model, surveyDefinition, pdfFileName]);
+  }, [model, surveyDefinition, pdfFileName, surveyFlowConfig]);
 
-  return <Survey model={model} />;
+  return (
+    <div className="w-full">
+      {statusMessage ? (
+        <div
+          className={`mt-4 rounded-md border px-4 py-3 text-sm ${
+            isSubmitting
+              ? 'border-blue-200 bg-blue-50 text-blue-700'
+              : statusMessage.includes('Erro')
+                ? 'border-red-200 bg-red-50 text-red-700'
+                : 'border-green-200 bg-green-50 text-green-700'
+          }`}
+        >
+          {statusMessage}
+        </div>
+      ) : null}
+      <Survey model={model} />
+    </div>
+  );
 }
