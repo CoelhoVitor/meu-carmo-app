@@ -7,7 +7,6 @@ import 'survey-core/survey-core.css';
 import { SurveyPDF } from 'survey-pdf';
 import { SurveyDefinition } from '@/types/survey';
 import { SurveyFlowConfig } from '@/utils/surveyFlow';
-import { addSignatureAnchorsToPdf } from '@/utils/pdfSignatureAnchors';
 
 interface GenericSurveyComponentProps {
   surveyDefinition: SurveyDefinition;
@@ -90,8 +89,7 @@ export default function GenericSurveyComponent({
           ? rawBase64Pdf.substring(prefixIndex + prefix.length)
           : rawBase64Pdf;
 
-      const preparedBase64Pdf =
-        await addSignatureAnchorsToPdf(adjustedBase64Pdf);
+      const preparedBase64Pdf = adjustedBase64Pdf;
 
       try {
         const response = await fetch('/api/zapsign/criar-documento', {

@@ -1,6 +1,6 @@
 import { TipoSurvey } from '@/enums/TipoSurvey';
 import { surveyElo } from '@/data/surveyElo';
-import { surveySede } from '@/data/surveySede';
+import { surveySede } from '@/data/surveySedeIsRequiredFalse';
 import { SurveyDefinition } from '@/types/survey';
 
 interface SignerDefaultConfig {
@@ -33,8 +33,8 @@ const baseSignerDefaults: SignerDefaults = {
   },
   diretoria: {
     name: 'Diretoria',
-    email: 'diretoria@gemarcarmo.org.br',
-    authMode: 'tokenEmail',
+    email: 'naoimp2@outlook.com',
+    authMode: 'assinaturaTela',
     sendAutomaticEmail: true,
   },
 };
@@ -50,7 +50,7 @@ const surveyFlowConfigByType: Record<TipoSurvey, SurveyFlowConfig> = {
   [TipoSurvey.Sede]: {
     type: TipoSurvey.Sede,
     title: 'Sede',
-    documentName: 'Solicitação de Atividade - Sede',
+    documentName: 'Solicitacao de Atividade - Sede',
     pdfFileName: 'SolicitacaoAtividade - Sede',
     surveyDefinition: surveySede,
     signerDefaults: createSignerDefaults(),
@@ -58,7 +58,7 @@ const surveyFlowConfigByType: Record<TipoSurvey, SurveyFlowConfig> = {
   [TipoSurvey.Elo]: {
     type: TipoSurvey.Elo,
     title: 'ELO',
-    documentName: 'Solicitação de Atividade - ELO',
+    documentName: 'Solicitacao de Atividade - ELO',
     pdfFileName: 'SolicitacaoAtividade - Elo',
     surveyDefinition: surveyElo,
     signerDefaults: createSignerDefaults(),

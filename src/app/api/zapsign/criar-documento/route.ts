@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { PDFDocument } from 'pdf-lib';
 import type { SurveyFlowConfig } from '@/utils/surveyFlow';
 
 interface ZapSignSigner {
@@ -7,8 +8,7 @@ interface ZapSignSigner {
   auth_mode: string;
   send_automatic_email: boolean;
   custom_message: string;
-  signature_placement?: string;
-  rubrica_placement?: string;
+  order_group?: number;
 }
 
 interface ZapSignPayload {
@@ -23,6 +23,23 @@ interface ZapSignRequest {
   base64_pdf: string;
   emailDestinatario?: string;
   surveyFlowConfig?: SurveyFlowConfig;
+}
+
+async function getLastPageIndex(base64Pdf: string): Promise<number> {
+  const pdfDoc = await PDFDocument.load(Buffer.from(base64Pdf, 'base64'));
+  return pdfDoc.getPageCount() - 1;
+}
+
+async function readJsonBody(
+  response: Response,
+): Promise<Record<string, unknown>> {
+  const text = await response.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text) as Record<string, unknown>;
+  } catch {
+    return {};
+  }
 }
 
 function buildSigners(
@@ -40,7 +57,7 @@ function buildSigners(
         send_automatic_email: signerDefaults.chefe.sendAutomaticEmail,
         custom_message:
           'Olá, chefe! Segue a solicitação de atividade para assinatura.',
-        signature_placement: '<<chefe_assinatura>>',
+        order_group: 1,
       },
       {
         name: signerDefaults.diretoria.name,
@@ -49,7 +66,7 @@ function buildSigners(
         send_automatic_email: signerDefaults.diretoria.sendAutomaticEmail,
         custom_message:
           'Olá, diretoria! Segue a solicitação de atividade para análise.',
-        signature_placement: '<<diretoria_assinatura>>',
+        order_group: 2,
       },
     ];
   }
@@ -80,7 +97,7 @@ export async function POST(req: Request) {
     const apiToken = process.env.ZAPSIGN_API_TOKEN;
     if (!apiToken) {
       return NextResponse.json(
-        { error: 'api token não configurado' },
+        { error: 'Api token não configurado' },
         { status: 500 },
       );
     }
@@ -94,8 +111,8 @@ export async function POST(req: Request) {
     }
 
     const observers = [
-      process.env.NOTIFICATION_EMAIL_1 ?? 'vitorvcs@hotmail.com',
-      process.env.NOTIFICATION_EMAIL_2 ?? 'diretoria@gemarcarmo.org.br',
+      process.env.NOTIFICATION_EMAIL_1!,
+      process.env.NOTIFICATION_EMAIL_2!,
     ];
 
     const payload: ZapSignPayload = {
@@ -118,7 +135,7 @@ export async function POST(req: Request) {
       },
     );
 
-    const responseData = await response.json();
+    const responseData = await readJsonBody(response);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -127,9 +144,67 @@ export async function POST(req: Request) {
       );
     }
 
+    const signersData = responseData.signers as
+      | Array<{ token: string }>
+      | undefined;
+
+    if (!signersData || signersData.length < 2) {
+      return NextResponse.json(
+        { error: 'Documento criado sem os signatários esperados' },
+        { status: 500 },
+      );
+    }
+
+    const lastPageIndex = await getLastPageIndex(base64_pdf);
+
+    const rubricas = [
+      {
+        page: lastPageIndex,
+        relative_position_bottom: 12,
+        relative_position_left: 20,
+        relative_size_x: 19.55,
+        relative_size_y: 9.42,
+        signer_token: signersData[0].token,
+        type: 'signature',
+      },
+      {
+        page: lastPageIndex,
+        relative_position_bottom: 2,
+        relative_position_left: 20,
+        relative_size_x: 19.55,
+        relative_size_y: 9.42,
+        signer_token: signersData[1].token,
+        type: 'signature',
+      },
+    ];
+
+    const placeResponse = await fetch(
+      `https://sandbox.api.zapsign.com.br/api/v1/docs/${responseData.token}/place-signatures/`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiToken}`,
+        },
+        body: JSON.stringify({ rubricas }),
+      },
+    );
+
+    const placeData = await readJsonBody(placeResponse);
+
+    if (!placeResponse.ok) {
+      return NextResponse.json(
+        {
+          error: 'Erro ao posicionar assinaturas no ZapSign',
+          details: placeData,
+        },
+        { status: placeResponse.status },
+      );
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Documento criado com sucesso no ZapSign',
+      message: 'Documento criado e assinaturas posicionadas com sucesso',
       data: responseData,
     });
   } catch (error) {
