@@ -1,7 +1,82 @@
 @import "tailwindcss";
 
+/* Dark mode por classe (gerenciado pelo next-themes no <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tokens de tema — claro */
+:root {
+  color-scheme: light;
+
+  --app-font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+  --background: #f6f7f8;
+  --surface: #ffffff;
+  --surface-hover: #eef1f2;
+  --foreground: #1a1d1f;
+  --muted: #5d656b;
+  --border: #e3e6e8;
+  --primary: #0f766e;
+  --primary-hover: #0d5f58;
+  --primary-foreground: #ffffff;
+  --primary-soft: #e3f3f0;
+  --primary-soft-foreground: #0b5c55;
+}
+
+/* Tokens de tema — escuro */
+.dark {
+  color-scheme: dark;
+
+  --background: #0f1113;
+  --surface: #171a1d;
+  --surface-hover: #202427;
+  --foreground: #e7eaec;
+  --muted: #a2aab1;
+  --border: #262b2f;
+  --primary: #2dd4bf;
+  --primary-hover: #5eead4;
+  --primary-foreground: #052e29;
+  --primary-soft: #143b36;
+  --primary-soft-foreground: #7fe7d6;
+}
+
+/* Expõe os tokens como utilitários do Tailwind (bg-surface, text-muted, ...) */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border-soft: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-foreground: var(--primary-soft-foreground);
+  --font-sans: var(--app-font-sans);
+}
+
+html {
+  height: 100%;
+}
+
 body {
-  background-color: #ffffff;
-  color: #171717;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--app-font-sans);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
 }

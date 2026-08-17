@@ -1,66 +1,78 @@
 import Link from 'next/link';
+import { ArrowRight, Building2, Users } from 'lucide-react';
 
 export default function Home() {
-  const botoes = [
+  const opcoes = [
     {
-      texto: 'Sede',
+      titulo: 'Sede',
+      descricao: 'Abrir formulário',
       link: '/surveySede',
+      icone: Building2,
     },
     {
-      texto: 'ELO',
+      titulo: 'ELO',
+      descricao: 'Abrir formulário',
       link: '/surveyElo',
+      icone: Users,
     },
   ];
 
   return (
-    <>
-      <div className="container mx-auto px-4 py-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card titulo="Solicitação de Atividade" botoes={botoes} />
-        </div>
-      </div>
-    </>
-  );
-}
+    <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-2xl flex-col items-center justify-center px-4 py-16 text-center">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+        Meu Carmo
+      </p>
 
-function Card({
-  titulo,
-  descricao,
-  botoes,
-}: {
-  titulo: string;
-  descricao?: string;
-  botoes: botao[];
-}) {
-  return (
-    <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-all duration-300">
-      <h2 className="text-xl font-semibold mb-4 text-gray-900">{titulo}</h2>
+      <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        Solicitação de Atividade
+      </h1>
 
-      <p className="text-gray-600 mb-6">{descricao}</p>
+      <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
+        Escolha o tipo de solicitação para começar. O formulário é preenchido
+        em etapas e o documento é gerado automaticamente para assinatura.
+      </p>
 
-      <div className="flex space-x-4">
-        {botoes.map((botao, index) => (
-          <Botao key={index} botao={botao} />
+      <div className="mt-10 grid w-full gap-4 sm:grid-cols-2">
+        {opcoes.map((opcao) => (
+          <Opcao key={opcao.link} {...opcao} />
         ))}
       </div>
     </div>
   );
 }
 
-type botao = {
-  texto: string;
+function Opcao({
+  titulo,
+  descricao,
+  link,
+  icone: Icone,
+}: {
+  titulo: string;
+  descricao: string;
   link: string;
-};
-
-function Botao({ botao }: { botao: botao }) {
+  icone: typeof Building2;
+}) {
   return (
-    <div className="pr-1 last:pr-0">
-      <Link
-        href={botao.link}
-        className="mt-auto inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
-      >
-        <b>{botao.texto}</b>
-      </Link>
-    </div>
+    <Link
+      href={link}
+      className="group flex items-center gap-4 rounded-xl border border-border-soft bg-surface p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transform-none"
+    >
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-soft-foreground">
+        <Icone size={22} aria-hidden />
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="block text-base font-semibold text-foreground">
+          {titulo}
+        </span>
+        <span className="block text-sm text-muted">{descricao}</span>
+      </span>
+
+      <ArrowRight
+        size={18}
+        aria-hidden
+        className="shrink-0 text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-primary motion-reduce:transform-none"
+      />
+    </Link>
   );
 }
